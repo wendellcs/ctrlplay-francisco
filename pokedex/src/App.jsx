@@ -1,15 +1,43 @@
 // import arceus from './assets/arceus.png'
 import './style.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
   const [nome, setNome] = useState('')
-  const [tipo, setTipo] = useState([])
+  const [tipo, setTipo] = useState('')
   const [raridade, setRaridade] = useState('')
   const [fraquezas, setFraquezas] = useState([])
-  
-  function handleForm(){
+  const [listaTipos, setListaTipos] = useState([])
+
+  useEffect(() => {
+    dados = tipo.split(',').map(item => item.trim())
+    setListaTipos(dados)
+  }, [tipo])
+
+  function defTipo(e){
     
+  }
+  
+  async function handleForm(){
+    if (!nome || !raridade || tipo.length < 1 || fraquezas.length < 1){
+      return
+    }
+
+    try {
+      const pokemon = {
+        nome: 'Charmander',
+        tipo: ['Fogo'],
+        raridade: 'comum',
+        fraquezas: ['Água' ,'Terrestre' ,'Pedra']
+      }
+
+      await axios.post('https://localhost:3000/pokemon', pokemon)
+
+      console.log('Enviado com sucesso!')
+    } catch (e){
+      console.log('Erro ao enviar dados: ', e)
+    } 
   }
 
   return (
@@ -69,9 +97,8 @@ function App() {
 
             <div className="box">
               <label htmlFor="">Elementos</label>
-              <input type="text" value={nome} onChange={(e) => {
-                const data = e.target.value
-                setFraquezas(data.join(',').map(item => item.trim()))
+              <input type="text" value={tipo} onChange={(e) => {
+                setTipo(e.target.value)
               }} placeholder="Elementos"/>
             </div>
 
