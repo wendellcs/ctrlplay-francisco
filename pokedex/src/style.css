@@ -45,3 +45,46 @@ img {
     max-width: 320px;
     padding: 20px 10px;
 }
+
+.section-form {
+    text-align: center;
+}
+
+form {
+    background-color: rgba(0, 0, 15, 0.596);
+    width: 100%;
+    max-width: 700px;
+    margin: 40px auto;
+    border: 1px solid rgb(24, 2, 108);
+    border-radius: 12px;
+    padding: 60px 0;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+}
+
+label {
+    text-align: left;
+    margin: 20px 0 10px 0;
+}
+
+input {
+    height: 40px;
+    padding-left: 8px;
+}
+
+button {
+    margin-top: 40px;
+    width: 180px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(12, 3, 28);
+    border: 1px solid rgb(24, 2, 108);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}

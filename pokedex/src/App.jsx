@@ -7,7 +7,9 @@ function App() {
   const [nome, setNome] = useState('')
   const [tipo, setTipo] = useState('')
   const [raridade, setRaridade] = useState('')
-  const [fraquezas, setFraquezas] = useState([])
+  const [fraqueza, setFraqueza] = useState('')
+
+  const [listaFraquezas, setListaFraquezas] = useState([])
   const [listaTipos, setListaTipos] = useState([])
 
   useEffect(() => {
@@ -15,12 +17,13 @@ function App() {
     setListaTipos(dados)
   }, [tipo])
 
-  function defTipo(e){
-    
-  }
+  useEffect(() => {
+    const dados = fraqueza.split(',').map(item => item.trim())
+    setListaFraquezas(dados)
+  }, [fraqueza])
   
   async function handleForm(){
-    if (!nome || !raridade || tipo.length < 1 || fraquezas.length < 1){
+    if (!nome || !raridade || listaTipos.length < 1 || listaFraquezas.length < 1){
       return
     }
 
@@ -85,7 +88,7 @@ function App() {
           </div>
         </section>
 
-        <section>
+        <section className='section-form'>
           <h2>Adicione um pokemon</h2>
 
           <form onSubmit={handleForm}>
@@ -115,7 +118,25 @@ function App() {
             <button className="btn" type="submit">Enviar</button>
           </form>
         </section>
+
+        <section>
+          <h2>Informações</h2>
+
+          <div className='container-cards'>
+              {listaPokemons && listaPokemons.map(pokemon => {
+                // Renderizar os cards
+                <div className="card" key={pokemon.id}>
+                  <p>{pokemon.nome}</p>
+                
+                </div>
+              })}
+          </div>
+        </section>
       </main>
+
+      <footer>
+        <p>2025 &copy; | Todos os direitos reservados</p>
+      </footer>
     </>
   )
 }
