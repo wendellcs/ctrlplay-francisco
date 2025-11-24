@@ -11,7 +11,7 @@ function App() {
   const [listaTipos, setListaTipos] = useState([])
 
   useEffect(() => {
-    dados = tipo.split(',').map(item => item.trim())
+    const dados = tipo.split(',').map(item => item.trim())
     setListaTipos(dados)
   }, [tipo])
 
@@ -51,7 +51,7 @@ function App() {
           <div className="card">
             <h2>Pikachu</h2>
 
-            <img src="" alt="imagem pikachu"/>
+            {/* <img src="" alt="imagem pikachu"/> */}
 
             <div className="description">
               <p className="type">Tipo: Elétrico</p>
@@ -63,7 +63,7 @@ function App() {
           <div className="card">
             <h2>Arceus</h2>
 
-            <img src="" alt="imagem arceus"/>
+            {/* <img src="" alt="imagem arceus"/> */}
 
             <div className="description">
               <p className="type">Tipo: Normal</p>
@@ -75,7 +75,7 @@ function App() {
           <div className="card">
             <h2>Bulbasaur</h2>
 
-            <img src="" alt="imagem bulbasaur"/>
+            {/* <img src="" alt="imagem bulbasaur"/> */}
 
             <div className="description">
               <p className="type">Tipo: Planta | Veneno</p>
