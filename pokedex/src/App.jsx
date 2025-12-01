@@ -9,8 +9,20 @@ function App() {
   const [raridade, setRaridade] = useState('')
   const [fraqueza, setFraqueza] = useState('')
 
+  const [listaPokemons, setListaPokemons] = useState([])
+
   const [listaFraquezas, setListaFraquezas] = useState([])
   const [listaTipos, setListaTipos] = useState([])
+
+  useEffect(() => {
+    async function loadData() {
+      const data = await axios.get('http://localhost:3000/pokemon')
+
+      console.log(data.data)
+      setListaPokemons(data.data)
+    }
+    loadData()
+  }, [])
 
   useEffect(() => {
     const dados = tipo.split(',').map(item => item.trim())
@@ -23,6 +35,7 @@ function App() {
   }, [fraqueza])
   
   async function handleForm(e){
+    console.log(nome, raridade, listaFraquezas, listaTipos)
     e.preventDefault()
     if (!nome || !raridade || listaTipos.length < 1 || listaFraquezas.length < 1){
       return
@@ -30,13 +43,13 @@ function App() {
 
     try {
       const pokemon = {
-        nome: 'Teste',
-        tipo: ['Fogo'],
-        raridade: 'comum',
-        fraquezas: ['Água' ,'Terrestre' ,'Pedra']
+        nome: nome,
+        tipo: listaTipos,
+        raridade: raridade,
+        fraquezas: listaFraquezas
       }
 
-      await axios.post('https://localhost:3000/pokemon', pokemon)
+      await axios.post('http://localhost:3000/pokemon', pokemon)
 
       console.log('Enviado com sucesso!')
     } catch (e){
@@ -108,15 +121,15 @@ function App() {
 
             <div className="box">
               <label htmlFor="">Fraquezas</label>
-              <input type="text" placeholder="Fraquezas"/>
+              <input type="text" placeholder="Fraquezas" onChange={e => setFraqueza(e.target.value)}/>
             </div>
 
             <div className="box">
               <label htmlFor="">Raridade</label>
-              <input type="text" placeholder="Raridade" />
+              <input type="text" placeholder="Raridade" onChange={e => setRaridade(e.target.value)}/>
             </div>
 
-            <button className="btn" type="submit">Enviar</button>
+            <button className="btn" type="submit" onClick={(e) => handleForm(e)}>Enviar</button>
           </form>
         </section>
 
@@ -124,13 +137,28 @@ function App() {
           <h2>Informações</h2>
 
           <div className='container-cards'>
-              {/* {listaPokemons && listaPokemons.map(pokemon => {
-                // Renderizar os cards
-                <div className="card" key={pokemon.id}>
-                  <p>{pokemon.nome}</p>
-                
-                </div>
-              })} */}
+              {listaPokemons && listaPokemons.map(pokemon => {
+                return (
+                  <div className="card" key={pokemon._id}>
+                    <h2>{pokemon.nome}</h2>
+                    <h3>Tipos</h3>
+                    <ul className='lista-tipos'>
+                      {pokemon.tipo.map(t => {
+                        return <li>{t}</li>
+                      })}
+                    </ul>
+
+                    <h3>Raridade: {pokemon.raridade}</h3>
+
+                    <h3>Fraquezas</h3>
+                    <ul>
+                      {pokemon.fraquezas.map(f => {
+                        return <li>{f}</li>
+                      })}
+                    </ul>
+                  </div>
+                )
+              })}
           </div>
         </section>
       </main>
