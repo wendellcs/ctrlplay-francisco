@@ -22,14 +22,15 @@ function App() {
     setListaFraquezas(dados)
   }, [fraqueza])
   
-  async function handleForm(){
+  async function handleForm(e){
+    e.preventDefault()
     if (!nome || !raridade || listaTipos.length < 1 || listaFraquezas.length < 1){
       return
     }
 
     try {
       const pokemon = {
-        nome: 'Charmander',
+        nome: 'Teste',
         tipo: ['Fogo'],
         raridade: 'comum',
         fraquezas: ['Água' ,'Terrestre' ,'Pedra']
@@ -91,7 +92,7 @@ function App() {
         <section className='section-form'>
           <h2>Adicione um pokemon</h2>
 
-          <form onSubmit={handleForm}>
+          <form>
 
             <div className="box">
               <label htmlFor="">Nome do Pokemon</label>
@@ -123,13 +124,13 @@ function App() {
           <h2>Informações</h2>
 
           <div className='container-cards'>
-              {listaPokemons && listaPokemons.map(pokemon => {
+              {/* {listaPokemons && listaPokemons.map(pokemon => {
                 // Renderizar os cards
                 <div className="card" key={pokemon.id}>
                   <p>{pokemon.nome}</p>
                 
                 </div>
-              })}
+              })} */}
           </div>
         </section>
       </main>
